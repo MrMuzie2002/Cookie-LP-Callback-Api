@@ -63,8 +63,7 @@ class CookieCallback:
         try:
             if request.json['secret_key'] == SECRET_KEY:
                 return 'ok'
-            else:
-                return 'che'
+            return 'che'
         except Exception:
             return 'che'
 
@@ -75,12 +74,11 @@ class CookieCallback:
                     'success': 1,
                     'updates': self._get_events()
                 })
-            else:
-                return jsonify({
-                    'success': 0,
-                    'err_msg': 'Incorrect secret key.',
-                    'err_code': self.ErrorCode.IncorrectKey.value
-                })
+            return jsonify({
+                'success': 0,
+                'err_msg': 'Incorrect secret key.',
+                'err_code': self.ErrorCode.IncorrectKey.value
+            })
         except Exception:
             return jsonify({
                 'success': 0,
@@ -96,7 +94,7 @@ class CookieCallback:
                     'err_msg': 'Incorrect secret key.',
                     'err_code': self.ErrorCode.IncorrectKey.value
                 })
-            if request.json['method'] in DISALLOWED_METHODS:
+            elif request.json['method'] in DISALLOWED_METHODS:
                 return jsonify({
                     'success': 0,
                     'err_msg': 'Method not allowed.',
